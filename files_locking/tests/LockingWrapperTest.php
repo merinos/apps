@@ -64,6 +64,7 @@ class LockingWrapperTest extends \PHPUnit_Framework_TestCase {
 		$fh2 = $storage2->fopen('foo.txt', 'r+');
 
 	}
+
 	/**
 	 * @expectedException \OCP\Files\LockNotAcquiredException
 	 */
@@ -95,5 +96,12 @@ class LockingWrapperTest extends \PHPUnit_Framework_TestCase {
 		return $this->fileSystem;
 	}
 
+
+	public function testRenameAndWrite() {
+		$storage1 = new LockingWrapper(array('storage' => $this->fileSystem));
+
+		$fh = $storage1->fopen('foo.txt', 'r');
+		$storage1->rename('foo.txt', 'bar.txt');
+		$storage1->unlink('bar.txt');
+	}
 }
- 
