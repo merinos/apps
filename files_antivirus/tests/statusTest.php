@@ -9,7 +9,7 @@
 require_once __DIR__ . '../../../../lib/base.php';
 
 
-class Test_Files_Antivirus_Status extends  \PHPUnit_Framework_TestCase {
+class Test_Files_Antivirus_Status extends  \Test\TestCase {
 	
 	// See OCA\Files_Antivirus\Status::init for details
 	const TEST_CLEAN = 0;

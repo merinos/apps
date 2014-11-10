@@ -10,7 +10,7 @@
 require_once __DIR__ . '../../../../lib/base.php';
 
 
-class Test_Files_Antivirus_Status extends  \PHPUnit_Framework_TestCase {
+class Test_Files_Antivirus_Status extends \Test\TestCase {
 	
 	const TEST_CLEAN_FILENAME = 'foo.txt';
 	const TEST_INFECTED_FILENAME = 'kitten.inf';
@@ -21,7 +21,9 @@ class Test_Files_Antivirus_Status extends  \PHPUnit_Framework_TestCase {
 	
 	private $config = array();
 	
-	public function setUp() {
+	protected function setUp() {
+		parent::setUp();
+
 		\OC_User::clearBackends();
 		\OC_User::useBackend(new \OC_User_Dummy());
 
@@ -49,7 +51,7 @@ class Test_Files_Antivirus_Status extends  \PHPUnit_Framework_TestCase {
 		
 	}
 	
-	public function tearDown() {
+	protected function tearDown() {
 		\OC_User::setUserId($this->user);
 
 		$cache = $this->storage->getCache();
@@ -64,6 +66,8 @@ class Test_Files_Antivirus_Status extends  \PHPUnit_Framework_TestCase {
 		if (!is_null($this->config['av_path'])){
 			\OCP\Config::setAppValue('files_antivirus', 'av_path', $this->config['av_path']);
 		}
+
+		parent::tearDown();
 	}
 	
 	public function testScanFile(){
